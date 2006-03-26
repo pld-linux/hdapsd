@@ -10,12 +10,21 @@ Source0:	http://www.dresco.co.uk/hdaps/%{name}-%{snap}.c
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 URL:		http://www.thinkwiki.org/wiki/How_to_protect_the_harddisk_through_APS
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 HardDrive Active Protection System.
+
+The APS is a protection system for the ThinkPads internal harddrive. A
+sensor inside the ThinkPad recognizes when the notebook is
+accelerated. A software applet then is triggered to park the harddisk.
+This way the risk of data loss in case of when the notebook is dropped
+is significantly reduced since the read/write head of the harddrive is
+parked and hence can't crash onto the platter when the notebook drops
+onto the floor.
 
 %prep
 %setup -q -c -T
