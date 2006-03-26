@@ -6,7 +6,7 @@ Release:	0.%{snap}.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://www.dresco.co.uk/hdaps/%{name}-%{snap}.c
-# Source0-md5:	26a6e0795624114cc15aa48ad8b6ca6b
+# Source0-md5:	f9ac7f151e42ac6cc7249f5ccceb494b
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 URL:		http://www.thinkwiki.org/wiki/How_to_protect_the_harddisk_through_APS
