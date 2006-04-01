@@ -14,6 +14,8 @@ URL:		http://www.thinkwiki.org/wiki/How_to_protect_the_harddisk_through_APS
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
+# relies on kernel hdaps driver, which depends on CONFIG_X86
+ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
