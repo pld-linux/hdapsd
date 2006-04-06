@@ -51,15 +51,7 @@ case "$1" in
 		msg_not_running hdapsd
 	fi
 	;;
-  reload|force-reload)
-	if [ -f /var/lock/subsys/hdapsd ]; then
-		$0 restart
-	else
-		msg_not_running hdapsd >&2
-		exit 7
-	fi
-	;;
-  restart)
+  restart|force-reload)
 	$0 stop
 	$0 start
 	exit $?
