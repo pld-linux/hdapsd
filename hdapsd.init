@@ -21,6 +21,16 @@ RETVAL=0
 # See how we were called.
 case "$1" in
   start)
+  	# check whether kernel is hdaps_protect enabled
+	if [ ! -f /sys/devices/platform/hdaps/position ]; then
+		# it is not, try to load hdaps module and see if that helps
+		_modprobe hdaps
+		if [ ! -f /sys/devices/platform/hdaps/position ]; then
+			fail
+			exit 1
+		fi;
+	fi;
+	
 	# Start daemons.
 	if [ ! -f /var/lock/subsys/hdapsd ]; then
 		msg_starting hdapsd
@@ -43,9 +53,7 @@ case "$1" in
 	;;
   reload|force-reload)
 	if [ -f /var/lock/subsys/hdapsd ]; then
-		msg_reloading hdapsd
-		killproc hdapsd -HUP
-		RETVAL=$?
+		$0 restart
 	else
 		msg_not_running hdapsd >&2
 		exit 7
