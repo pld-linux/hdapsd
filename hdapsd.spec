@@ -1,4 +1,4 @@
-%define	snap	20060322
+%define	snap	20060409
 Summary:	HardDrive Active Protection System
 Summary(pl):	HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
@@ -7,7 +7,7 @@ Release:	0.%{snap}.1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://www.dresco.co.uk/hdaps/%{name}-%{snap}.c
-# Source0-md5:	f9ac7f151e42ac6cc7249f5ccceb494b
+# Source0-md5:	0b157c049c14c0e79b41b2d3ebfe39a0
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 URL:		http://www.thinkwiki.org/wiki/How_to_protect_the_harddisk_through_APS
