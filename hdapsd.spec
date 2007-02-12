@@ -1,6 +1,6 @@
 %define	snap	20060409
 Summary:	HardDrive Active Protection System
-Summary(pl):	HDAPS - system aktywnej ochrony dysku twardego
+Summary(pl.UTF-8):   HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
 Version:	0.1
 Release:	0.%{snap}.1
@@ -29,17 +29,17 @@ is significantly reduced since the read/write head of the harddrive is
 parked and hence can't crash onto the platter when the notebook drops
 onto the floor.
 
-%description -l pl
+%description -l pl.UTF-8
 HardDrive Active Protection System - system aktywnej ochrony dysku
 twardego.
 
-APS to system ochrony dla wewnêtrznego dysku twardego ThinkPadów.
-Czujnik wewn±trz ThinkPada rozpoznaje kiedy notebook podlega
-przyspieszeniu. Aplet programowy reaguje na to parkuj±c dysk twardy. W
-ten sposób ryzyko utraty danych w przypadku upuszczenia notebooka jest
-znacz±co zmniejszane, poniewa¿ g³owica odczytuj±co-zapisuj±ca dysku
-jest zaparkowana, dziêki czemu nie mo¿e uderzyæ w talerz dysku przy
-uderzeniu o pod³o¿e.
+APS to system ochrony dla wewnÄ™trznego dysku twardego ThinkPadÃ³w.
+Czujnik wewnÄ…trz ThinkPada rozpoznaje kiedy notebook podlega
+przyspieszeniu. Aplet programowy reaguje na to parkujÄ…c dysk twardy. W
+ten sposÃ³b ryzyko utraty danych w przypadku upuszczenia notebooka jest
+znaczÄ…co zmniejszane, poniewaÅ¼ gÅ‚owica odczytujÄ…co-zapisujÄ…ca dysku
+jest zaparkowana, dziÄ™ki czemu nie moÅ¼e uderzyÄ‡ w talerz dysku przy
+uderzeniu o podÅ‚oÅ¼e.
 
 %prep
 %setup -q -c -T
