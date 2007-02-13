@@ -1,6 +1,6 @@
 %define	snap	20060409
 Summary:	HardDrive Active Protection System
-Summary(pl.UTF-8):   HDAPS - system aktywnej ochrony dysku twardego
+Summary(pl.UTF-8):	HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
 Version:	0.1
 Release:	0.%{snap}.1
