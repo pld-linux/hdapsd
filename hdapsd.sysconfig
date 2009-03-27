@@ -1,3 +1,5 @@
-HDAPS_DEVICE="hda"
+# Customized settings for hdapsd
+
+HDAPS_DEVICE="sda"
 HDAPS_SENSITIVITY=15
 HDAPS_OPTIONS=""
