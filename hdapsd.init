@@ -23,6 +23,7 @@ start() {
 		return
 	fi
 
+	msg_starting hdapsd
   	# check whether kernel is hdaps_protect enabled
 	if [ ! -f /sys/devices/platform/hdaps/position ]; then
 		# it is not, try to load hdaps module and see if that helps
@@ -33,7 +34,6 @@ start() {
 		fi;
 	fi;
 	
-	msg_starting hdapsd
 	daemon hdapsd -d ${HDAPS_DEVICE} -s ${HDAPS_SENSITIVITY} ${HDAPS_OPTIONS} -b
 	RETVAL=$?
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/hdapsd
