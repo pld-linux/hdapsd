@@ -16,11 +16,13 @@ HDAPS_SENSITIVITY=15
 # Configuration file.
 [ -f /etc/sysconfig/hdapsd ] && . /etc/sysconfig/hdapsd
 
+start() {
+	# Start daemons.
+	if [ -f /var/lock/subsys/hdapsd ]; then
+		msg_already_running hdapsd
+		return
+	fi
 
-RETVAL=0
-# See how we were called.
-case "$1" in
-  start)
   	# check whether kernel is hdaps_protect enabled
 	if [ ! -f /sys/devices/platform/hdaps/position ]; then
 		# it is not, try to load hdaps module and see if that helps
@@ -31,37 +33,59 @@ case "$1" in
 		fi;
 	fi;
 	
-	# Start daemons.
-	if [ ! -f /var/lock/subsys/hdapsd ]; then
-		msg_starting hdapsd
-		daemon hdapsd -d ${HDAPS_DEVICE} -s ${HDAPS_SENSITIVITY} ${HDAPS_OPTIONS} -b
-		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/hdapsd
-	else
-		msg_already_running hdapsd
-	fi
-	;;
-  stop)
+	msg_starting hdapsd
+	daemon hdapsd -d ${HDAPS_DEVICE} -s ${HDAPS_SENSITIVITY} ${HDAPS_OPTIONS} -b
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/hdapsd
+}
+
+stop() {
 	# Stop daemons.
+	if [ ! -f /var/lock/subsys/hdapsd ]; then
+		msg_not_running hdapsd
+		return
+	fi
+
+	msg_stopping hdapsd
+	killproc hdapsd
+	rm -f /var/lock/subsys/hdapsd >/dev/null 2>&1
+}
+
+condrestart() {
 	if [ -f /var/lock/subsys/hdapsd ]; then
-		msg_stopping hdapsd
-		killproc hdapsd
-		rm -f /var/lock/subsys/hdapsd >/dev/null 2>&1
+		stop
+		start
 	else
 		msg_not_running hdapsd
+		RETVAL=$1
 	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
 	;;
-  restart|force-reload)
-	$0 stop
-	$0 start
-	exit $?
+  stop)
+  	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
 	;;
   status)
 	status hdapsd
 	exit $?
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|force-reload|status}"
 	exit 3
 esac
 
