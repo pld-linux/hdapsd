@@ -1,4 +1,4 @@
-%define		snap	20081004
+%define		snap	20090401
 Summary:	HardDrive Active Protection System
 Summary(pl.UTF-8):	HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
@@ -6,11 +6,11 @@ Version:	0.1
 Release:	0.%{snap}.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://www.zen24593.zen.co.uk/hdaps/hdapsd-20081004.c
-# Source0-md5:	f38893ce27cf921ad87644de70ccc135
+Source0:	http://dl.sourceforge.net/sourceforge/hdaps/hdapsd-20090401.tar.gz
+# Source0-md5:	897cee8b0192febd127470f3e9506aeb
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
-URL:		http://www.thinkwiki.org/wiki/How_to_protect_the_harddisk_through_APS
+URL:		http://hdaps.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
@@ -42,16 +42,19 @@ jest zaparkowana, dzięki czemu nie może uderzyć w talerz dysku przy
 uderzeniu o podłoże.
 
 %prep
-%setup -q -c -T
+%setup -q -n %{name}-%{snap}
 
 %build
-%{__cc} %{rpmcflags} %{rpmldflags} %{SOURCE0} -o %{name}
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/{sysconfig,rc.d/init.d}}
+install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d}
 
-install %{name} $RPM_BUILD_ROOT%{_sbindir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
@@ -70,6 +73,8 @@ fi
 
 %files
 %defattr(644,root,root,755)
+%doc README ChangeLog AUTHORS
 %attr(754,root,root) %{_sbindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
+%{_mandir}/man8/hdapsd.8*

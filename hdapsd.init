@@ -10,8 +10,8 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-HDAPS_DEVICE="hda"
-HDAPS_SENSITIVITY=15
+HDAPS_DEVICE=""
+HDAPS_SENSITIVITY=""
 
 # Configuration file.
 [ -f /etc/sysconfig/hdapsd ] && . /etc/sysconfig/hdapsd
@@ -34,7 +34,7 @@ start() {
 		fi;
 	fi;
 	
-	daemon hdapsd -d ${HDAPS_DEVICE} -s ${HDAPS_SENSITIVITY} ${HDAPS_OPTIONS} -b
+	daemon hdapsd ${HDAPS_DEVICE:+-d ${HDAPS_DEVICE}} ${HDAPS_SENSITIVITY:+-s ${HDAPS_SENSITIVITY}} ${HDAPS_OPTIONS} -b -l
 	RETVAL=$?
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/hdapsd
 }
