@@ -15,7 +15,7 @@ Source3:	%{name}.upstart
 URL:		http://hdaps.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
-Requires:	rc-scripts
+Requires:	rc-scripts >= 0.4.3.0
 # relies on kernel hdaps driver, which depends on CONFIG_X86
 ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
