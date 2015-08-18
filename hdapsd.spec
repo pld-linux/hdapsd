@@ -1,5 +1,5 @@
 %define		snap	20090401
-%define		rel		2
+%define		rel	3
 Summary:	HardDrive Active Protection System
 Summary(pl.UTF-8):	HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
@@ -11,7 +11,6 @@ Source0:	http://downloads.sourceforge.net/hdaps/%{name}-20090401.tar.gz
 # Source0-md5:	897cee8b0192febd127470f3e9506aeb
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
-Source3:	%{name}.upstart
 URL:		http://hdaps.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
@@ -52,7 +51,7 @@ uderzeniu o podłoże.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,init}
+install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d}
 
 %{__make} install \
 	doc_DATA= \
@@ -60,7 +59,6 @@ install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,init}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
-cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/init/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,5 +79,4 @@ fi
 %attr(755,root,root) %{_sbindir}/hdapsd
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
-%config(noreplace) %verify(not md5 mtime size) /etc/init/%{name}.conf
 %{_mandir}/man8/hdapsd.8*
