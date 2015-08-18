@@ -1,5 +1,5 @@
 %define		snap	20090401
-%define		rel	3
+%define		rel	4
 Summary:	HardDrive Active Protection System
 Summary(pl.UTF-8):	HDAPS - system aktywnej ochrony dysku twardego
 Name:		hdapsd
@@ -11,12 +11,13 @@ Source0:	http://downloads.sourceforge.net/hdaps/%{name}-20090401.tar.gz
 # Source0-md5:	897cee8b0192febd127470f3e9506aeb
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
+Patch0:		format-security.patch
 URL:		http://hdaps.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts >= 0.4.3.0
 # relies on kernel hdaps driver, which depends on CONFIG_X86
-ExclusiveArch:	%{ix86} %{x8664}
+ExclusiveArch:	%{ix86} %{x8664} x32
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +45,7 @@ uderzeniu o podłoże.
 
 %prep
 %setup -q -n %{name}-%{snap}
+%patch0 -p1
 
 %build
 %configure

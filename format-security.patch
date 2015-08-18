@@ -1,0 +1,11 @@
+--- hdapsd-20090401/src/hdapsd.c~	2009-04-02 06:55:59.000000000 +0900
++++ hdapsd-20090401/src/hdapsd.c	2015-08-18 22:48:48.993706186 +0900
+@@ -82,7 +82,7 @@
+ 	va_end(ap);
+ 
+ 	if (dosyslog)
+-		syslog(LOG_INFO, msg);
++		syslog(LOG_INFO, "%s", msg);
+ 	else {
+ 		now = time((time_t *)NULL);
+ 		fprintf(stream, "%.24s: %s\n", ctime(&now), msg);
