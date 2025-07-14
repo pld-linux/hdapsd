@@ -45,7 +45,7 @@ uderzeniu o podłoże.
 
 %prep
 %setup -q -n %{name}-%{snap}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %configure
